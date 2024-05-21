@@ -1,4 +1,4 @@
-package com.example.productorderservice;
+package org.example.musicalticket;
 
 import com.google.common.base.CaseFormat;
 import jakarta.persistence.Entity;

@@ -1,2 +1,10 @@
-package org.example.musicalticket.member.domain;public enum Gender {
+package org.example.musicalticket.member.domain;
+
+import lombok.Getter;
+
+@Getter
+public enum Gender {
+    FEMALE,
+    MALE
+
 }

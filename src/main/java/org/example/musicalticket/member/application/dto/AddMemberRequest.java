@@ -1,5 +1,8 @@
 package org.example.musicalticket.member.application.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.example.musicalticket.member.domain.Gender;
 
 /**
@@ -11,12 +14,12 @@ import org.example.musicalticket.member.domain.Gender;
  * @param gender
  * @param age
  */
-public record MemberCreateRequest(
+public record AddMemberRequest(
+        @NotBlank(message = "EMAIL은 필수 값입니다.") @Email(message = "EMAIL 형식에 맞지 않습니다.")
         String email,
-
-        String name,
-        Gender gender,
-        int age
+        @NotBlank(message = "name은 필수 값입니다.")  String name,
+        @NotNull(message = "gender은 필수 값입니다.") Gender gender,
+        @NotNull(message = "age은 필수 값입니다.") Integer age
 ) {
 
 }
