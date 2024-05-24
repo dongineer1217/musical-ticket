@@ -23,13 +23,18 @@ public class Reservation {
     @Column(nullable = false)
     private boolean confirmed = false; //결제 여부
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "musical_id", nullable = false)
     private Musical musical;
+
+    public static Reservation activeReservation(final int tickets, final Member member, final Musical musical) {
+        musical.decrementSeats(tickets);
+        return new Reservation(tickets, false, member, musical);
+    }
 
     public Reservation(final int tickets, final boolean confirmed, final Member member, final Musical musical) {
         Assert.notNull(member, "회원은 필수입니다.");

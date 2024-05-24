@@ -1,4 +1,4 @@
-package org.example.musicalticket.member.application.dto;
+package org.example.musicalticket.member.presentation.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +14,7 @@ import org.example.musicalticket.member.domain.Gender;
  * @param gender
  * @param age
  */
-public record AddMemberRequest(
+public record AddMemberRequestDto(
         @NotBlank(message = "EMAIL은 필수 값입니다.") @Email(message = "EMAIL 형식에 맞지 않습니다.")
         String email,
         @NotBlank(message = "name은 필수 값입니다.")  String name,

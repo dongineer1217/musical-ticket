@@ -3,6 +3,7 @@ package org.example.musicalticket.musical.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.musicalticket.reservation.domain.Reservation;
@@ -36,6 +37,7 @@ public class Musical {
     private List<Reservation> reservationList = new ArrayList<>();
 
 
+    @Builder
     public Musical(final String title, final int price, final int totalSeats, final int availableSeats) {
         Assert.notNull(title, "뮤지컬 제목은 필수입니다.");
         Assert.isTrue(totalSeats > 0, "총 좌석수는 0보다 커야합니다.");
@@ -45,5 +47,15 @@ public class Musical {
         this.price = price;
         this.totalSeats = totalSeats;
         this.availableSeats = availableSeats;
+    }
+
+    //예약가능한 좌석 마이너스
+    public void decrementSeats(int count) {
+        this.availableSeats = this.availableSeats - count;
+    }
+
+    //예약 가능한지 ?
+    public boolean isReservation() {
+        return this.availableSeats > 0;
     }
 }

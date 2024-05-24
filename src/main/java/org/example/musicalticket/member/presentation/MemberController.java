@@ -3,13 +3,13 @@ package org.example.musicalticket.member.presentation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.musicalticket.member.application.MemberService;
-import org.example.musicalticket.member.application.dto.AddMemberRequest;
+import org.example.musicalticket.member.application.dto.MemberDto;
+import org.example.musicalticket.member.presentation.dto.AddMemberRequestDto;
+import org.example.musicalticket.member.presentation.dto.MemberResponseDto;
+import org.example.musicalticket.member.presentation.dto.MemberResponseDtoAssembler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/member")
@@ -19,11 +19,20 @@ public class MemberController {
     private final MemberService service;
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createMember(@RequestBody @Valid final AddMemberRequest request) {
+    public ResponseEntity<MemberResponseDto> createMember(@RequestBody @Valid final AddMemberRequestDto request) {
 
-       // service.createMember(request);
+        final MemberDto memberDto = service.createMember(request);
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        final MemberResponseDto responseDto = MemberResponseDtoAssembler.createMemberResponseDto(memberDto);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{memberId}")
+    public ResponseEntity<MemberResponseDto> getMember(@PathVariable("memberId") final Long memberId) {
+        final MemberDto memberDto = service.findMemberById(memberId);
+        final MemberResponseDto responseDto = MemberResponseDtoAssembler.createMemberResponseDto(memberDto);
+        return ResponseEntity.ok(responseDto);
     }
 
 }

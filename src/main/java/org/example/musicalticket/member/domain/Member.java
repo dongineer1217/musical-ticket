@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * 1. PROTECTED를 주는이유
  * JPA 엔티티 클래스를 인스턴스화하기위해 기본 생성자가 필요. (public or protected)
- * protected를 사용하는이유는 외부에서 직접적으로 이 샛ㅇ성자를 호출하여 객체를 생성하는 것을 방지 (무결성을 유지 또는 제한된범위내에서 허용)
+ * protected를 사용하는이유는 외부에서 직접적으로 이 생성자를 호출하여 객체를 생성하는 것을 방지 (무결성을 유지 또는 제한된범위내에서 허용)
  */
 @Getter
 @Entity
@@ -46,7 +46,7 @@ public class Member {
      * 2. orphanRemoval = true
      * List<Reservation> 엘리먼트 제거 하면 reservation 에서도 삭제됨
      */
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservation> reservationList = new ArrayList<>();
 
     @Builder

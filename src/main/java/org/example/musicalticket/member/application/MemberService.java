@@ -1,9 +1,12 @@
 package org.example.musicalticket.member.application;
 
-import org.example.musicalticket.member.application.dto.AddMemberRequest;
+import org.example.musicalticket.member.application.dto.MemberDto;
+import org.example.musicalticket.member.presentation.dto.AddMemberRequestDto;
 
 public interface MemberService {
 
-    void createMember(AddMemberRequest request);
+    MemberDto createMember(final AddMemberRequestDto request);
+
+    MemberDto findMemberById(final Long memberId);
 
 }
